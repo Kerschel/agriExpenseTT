@@ -60,7 +60,7 @@ public class NewCycleLists extends ListFragment {
                 // Perform DB Operation
                 if (type.equals(DHelper.cat_plantingMaterial)) {
                     DbQuery.getResources(db, dbh, DHelper.cat_plantingMaterial, list);
-                    Log.d(TAG, "Found: " + list.size() + " planting materials");
+                    Log.d(TAG, "Found: " + list.size() + " planting materials.json");
                 } else if (type.equals("land")) {
                     list.add("Acre");
                     list.add("Hectare");

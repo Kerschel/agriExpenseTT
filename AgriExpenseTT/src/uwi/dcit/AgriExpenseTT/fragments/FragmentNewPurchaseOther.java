@@ -134,7 +134,7 @@ public class FragmentNewPurchaseOther extends Fragment{
                         .addToBackStack(null)
                         .commit();// Commit the transaction
                 }else{
-                    tv_error_res.setText("Resource Already Exists. Enter another name for your resource or check list of materials");
+                    tv_error_res.setText("Resource Already Exists. Enter another name for your resource or check list of materials.json");
                     tv_error_res.setTextColor(ContextCompat.getColor(context, R.color.helper_text_error));
                     et_res.getBackground().setColorFilter(ContextCompat.getColor(context, R.color.helper_text_error), PorterDuff.Mode.SRC_ATOP);
                 }

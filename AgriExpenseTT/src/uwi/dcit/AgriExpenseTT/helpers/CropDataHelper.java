@@ -54,6 +54,7 @@ public class CropDataHelper {
 			JSONObject cropsJson = getCropsJSON(context);
 			Iterator<String> i = cropsJson.keys();
 			while (i.hasNext()) {
+
 				list.add(i.next());
 			}
 		} catch (Exception e) {
