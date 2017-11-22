@@ -112,7 +112,7 @@ public class DbHelper extends SQLiteOpenHelper{
 		// Create table with new structures
 		this.createDb(db);
 		
-		// Translate the data from 
+		// Translat*e the data from
 		this.translateData(db);
 
 		//delete the existing old tables
