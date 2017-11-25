@@ -1,5 +1,5 @@
 {
-  "PLANTING MATERIALS": {
+
     "list": [
       "BHAGI",
       "BORA (BODI) BEAN",
@@ -63,4 +63,4 @@
     ],
     "units": ["Heads", "Seed", "Seedling", "Slips", "Stick", "Tubes"]
   }
-}
+

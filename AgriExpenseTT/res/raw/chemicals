@@ -1,5 +1,5 @@
 {
-  "CHEMICALS": {
+
     "list": [
       "Algicides",
       "Antimicrobials",
@@ -27,4 +27,3 @@
       "ounces(oz)"
     ]
   }
-}

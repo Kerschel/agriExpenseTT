@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
+import uwi.dcit.AgriExpenseTT.helpers.PlantingHelper.Helper;
+import uwi.dcit.AgriExpenseTT.helpers.PlantingHelper.HelperFactory;
 import uwi.dcit.AgriExpenseTT.models.CloudKeyContract;
 import uwi.dcit.AgriExpenseTT.models.CountryContract;
 import uwi.dcit.AgriExpenseTT.models.CountyContract;
@@ -78,7 +80,7 @@ public class DbHelper extends SQLiteOpenHelper{
 			this.insertDefaultCounties(db);
 			
 			Log.d(TAG_NAME, "Running upgrade of crop/plating material lists");
-			this.updateCropList(db);
+//			this.updateCropList(db);
 		}
         if (oldVersion < 172){
             db.beginTransaction();
@@ -248,157 +250,157 @@ public class DbHelper extends SQLiteOpenHelper{
 	}
 	
 	private void populate(SQLiteDatabase db, TransactionLog tL) {
-		//create user Account
-//		UpAcc acc = new UpAcc();
-//		acc.setSignedIn(0);
-//		acc.setLastUpdated(System.currentTimeMillis() / 1000L);
-//		DbQuery.insertAccountTask(db, acc);
-		
-		insertDefaultCrops(db);
-		insertDefaultFertilizers(db);
-		insertDefaultSoilAdds(db);
-		insertDefaultChemicals(db);
+		HelperFactory data = new HelperFactory(ctx,db,this);
+		Helper chemicals = data.getHelper("chemicals");
+		Helper soil = data.getHelper("soil");
+		Helper fertilizer = data.getHelper("fertilizes");
+		Helper planting = data.getHelper("crops");
+
+//		insertDefaultCrops(db);
+//		insertDefaultFertilizers(db);
+//		insertDefaultSoilAdds(db);
+//		insertDefaultChemicals(db);
 		insertDefaultCountries(db);
 		insertDefaultCounties(db);
 	}
-	
-	private void insertDefaultCrops(SQLiteDatabase db) {
-		//planting material - reference cardi - Caribbean Agricultural Research and Development Institute
-		ArrayList<String> crops = CropDataHelper.getCrops(ctx);
-		for (String crop : crops) {
-			Log.i(TAG_NAME, "Inserting Crop: " + crop + " to database");
-			DbQuery.insertResource(db, this, DHelper.cat_plantingMaterial, crop);
-		}
-	}
-	
-	private void updateCropList(SQLiteDatabase db) {
-		//VEGETABLES
-		DbQuery.insertResource(db, this, DHelper.cat_plantingMaterial, "BHAGI");
-		DbQuery.insertResource(db, this, DHelper.cat_plantingMaterial, "BORA (BODI) BEAN");
-		DbQuery.insertResource(db, this, DHelper.cat_plantingMaterial, "CARAILLI");
-		DbQuery.insertResource(db, this, DHelper.cat_plantingMaterial, "CHOI SUM (CHINESE CABBAGE)");
-		DbQuery.insertResource(db, this, DHelper.cat_plantingMaterial, "CORN");
-		DbQuery.insertResource(db, this, DHelper.cat_plantingMaterial, "CUCUMBER");
-		DbQuery.insertResource(db, this, DHelper.cat_plantingMaterial, "DASHEEN BUSH");
-		DbQuery.insertResource(db, this, DHelper.cat_plantingMaterial, "GREEN FIG");
-		DbQuery.insertResource(db, this, DHelper.cat_plantingMaterial, "COWPEA (GUB GUB)");
-		DbQuery.insertResource(db, this, DHelper.cat_plantingMaterial, "JACK BEAN");
-		DbQuery.insertResource(db, this, DHelper.cat_plantingMaterial, "JHINGI");
-		DbQuery.insertResource(db, this, DHelper.cat_plantingMaterial, "LAUKI");
-		DbQuery.insertResource(db, this, DHelper.cat_plantingMaterial, "RADISH (MOORAI)");
-		DbQuery.insertResource(db, this, DHelper.cat_plantingMaterial, "OCHRO");
-		DbQuery.insertResource(db, this, DHelper.cat_plantingMaterial, "PAKCHOY");
-		DbQuery.insertResource(db, this, DHelper.cat_plantingMaterial, "PIMENTO PEPPER");
-		DbQuery.insertResource(db, this, DHelper.cat_plantingMaterial, "PLANTAIN");
-		DbQuery.insertResource(db, this, DHelper.cat_plantingMaterial, "VINE SPINACH (POI BHAGI)");
-		DbQuery.insertResource(db, this, DHelper.cat_plantingMaterial, "PUMPKIN");
-		DbQuery.insertResource(db, this, DHelper.cat_plantingMaterial, "SAIJAN");
-		DbQuery.insertResource(db, this, DHelper.cat_plantingMaterial, "SATPUTIYA");
-		DbQuery.insertResource(db, this, DHelper.cat_plantingMaterial, "SEIM");
-		DbQuery.insertResource(db, this, DHelper.cat_plantingMaterial, "STRING BEAN");
-		DbQuery.insertResource(db, this, DHelper.cat_plantingMaterial, "SQUASH");
-		DbQuery.insertResource(db, this, DHelper.cat_plantingMaterial, "TOMATO");
-		DbQuery.insertResource(db, this, DHelper.cat_plantingMaterial, "WATERCRESS");
-		DbQuery.insertResource(db, this, DHelper.cat_plantingMaterial, "WING BEAN");
-		
-		//ROOT CROPS
-		DbQuery.insertResource(db, this, DHelper.cat_plantingMaterial, "BEET");
-		DbQuery.insertResource(db, this, DHelper.cat_plantingMaterial, "CUSH CUSH");
-		DbQuery.insertResource(db, this, DHelper.cat_plantingMaterial, "GINGER");
-		DbQuery.insertResource(db, this, DHelper.cat_plantingMaterial, "LEREN (TOPI TAMBU)");
-		DbQuery.insertResource(db, this, DHelper.cat_plantingMaterial, "TUMERIC (SAFFRON)");
-		
-		//herbs
-		DbQuery.insertResource(db, this, DHelper.cat_plantingMaterial, "ANISE SEED");
-		DbQuery.insertResource(db, this, DHelper.cat_plantingMaterial, "BASIL");
-		DbQuery.insertResource(db, this, DHelper.cat_plantingMaterial, "BAY LEAF");
-		DbQuery.insertResource(db, this, DHelper.cat_plantingMaterial, "CELERY");
-		DbQuery.insertResource(db, this, DHelper.cat_plantingMaterial, "CHIVE");
-		DbQuery.insertResource(db, this, DHelper.cat_plantingMaterial, "CURRY LEAF");
-		DbQuery.insertResource(db, this, DHelper.cat_plantingMaterial, "DILL");
-		DbQuery.insertResource(db, this, DHelper.cat_plantingMaterial, "FENNEL");
-		DbQuery.insertResource(db, this, DHelper.cat_plantingMaterial, "MARJORAM");
-		DbQuery.insertResource(db, this, DHelper.cat_plantingMaterial, "MINT");
-		DbQuery.insertResource(db, this, DHelper.cat_plantingMaterial, "OREGANO");
-		DbQuery.insertResource(db, this, DHelper.cat_plantingMaterial, "PARSLEY");
-		DbQuery.insertResource(db, this, DHelper.cat_plantingMaterial, "ROSEMARY");
-		DbQuery.insertResource(db, this, DHelper.cat_plantingMaterial, "CULANTRO (SHADON BENI / BANDANIA)");
-		DbQuery.insertResource(db, this, DHelper.cat_plantingMaterial, "TARRAGON");
-		DbQuery.insertResource(db, this, DHelper.cat_plantingMaterial, "THYME - FRENCH");
-		DbQuery.insertResource(db, this, DHelper.cat_plantingMaterial, "THYME - SPANISH");
-		DbQuery.insertResource(db, this, DHelper.cat_plantingMaterial, "THYME - FINE");
-		
-		
-		DbQuery.insertResource(db, this, DHelper.cat_plantingMaterial, "PAW PAW");
-		DbQuery.insertResource(db, this, DHelper.cat_plantingMaterial, "PEANUTS");
-		DbQuery.insertResource(db, this, DHelper.cat_plantingMaterial, "NUTMEG");
-		DbQuery.insertResource(db, this, DHelper.cat_plantingMaterial, "BANANA");
-		DbQuery.insertResource(db, this, DHelper.cat_plantingMaterial, "BREADFRUIT");
-		DbQuery.insertResource(db, this, DHelper.cat_plantingMaterial, "BREADNUT (CHATAIGNE)");
-		DbQuery.insertResource(db, this, DHelper.cat_plantingMaterial, "CHERRY");
-		DbQuery.insertResource(db, this, DHelper.cat_plantingMaterial, "CARAMBOLA");
-
-		DbQuery.insertResource(db, this, DHelper.cat_plantingMaterial, "PUMPKIN");
-
-	}
-	
-	private void insertDefaultFertilizers(SQLiteDatabase db) {
-		//fertilizers -Plant Doctors tt
-		DbQuery.insertResource(db, this, DHelper.cat_fertilizer, "Fersan (7.12.40 + 1TEM)");
-		DbQuery.insertResource(db, this, DHelper.cat_fertilizer, "Magic Grow (7.12.40 + TE HYDROPHONIC)");
-		DbQuery.insertResource(db, this, DHelper.cat_fertilizer, "Hydro YARA Liva (15.0.15)");
-		DbQuery.insertResource(db, this, DHelper.cat_fertilizer, "Techni - Grow (7.12.27 + TE)");
-		DbQuery.insertResource(db, this, DHelper.cat_fertilizer, "Ferqidd (10.13.32 + TE)");
-		DbQuery.insertResource(db, this, DHelper.cat_fertilizer, "Plant Prod (7.12.27 + TE)");
-		DbQuery.insertResource(db, this, DHelper.cat_fertilizer, "Flower Plus (9.18.36 + TE)");
-		DbQuery.insertResource(db, this, DHelper.cat_fertilizer, "Iron Chelate Powder (FE - EDTA)");
-		DbQuery.insertResource(db, this, DHelper.cat_fertilizer, "Magnesium Sulphate (Mg SO4)");
-		DbQuery.insertResource(db, this, DHelper.cat_fertilizer, "12-24-12 FERTILIZER");
-		DbQuery.insertResource(db, this, DHelper.cat_fertilizer, "HARVEST MORE 10-55-10");
-		DbQuery.insertResource(db, this, DHelper.cat_fertilizer, "HARVEST MORE 13-0-44");
-		DbQuery.insertResource(db, this, DHelper.cat_fertilizer, "HARVEST MORE 5-5-45");
-		DbQuery.insertResource(db, this, DHelper.cat_fertilizer, "NPK 12-12-17");
-		DbQuery.insertResource(db, this, DHelper.cat_fertilizer, "UREA 46-0-0");
-		DbQuery.insertResource(db, this, DHelper.cat_fertilizer, "PLANT BOOSTER");
-		DbQuery.insertResource(db, this, DHelper.cat_fertilizer, "MIRACLE GRO ALL PROPOSE PLANT FOOD");
-		DbQuery.insertResource(db, this, DHelper.cat_fertilizer, "SCOTTS FLOWER AND VEGETABLE PLANT FOOD");
-	}
-	
-	private void insertDefaultSoilAdds(SQLiteDatabase db) {
-		//soil amendments -Plant Doctors tt
-		DbQuery.insertResource(db, this, DHelper.cat_soilAmendment, "Cow manure");
-		DbQuery.insertResource(db, this, DHelper.cat_soilAmendment, "Compost");
-		DbQuery.insertResource(db, this, DHelper.cat_soilAmendment, "Gypsum");
-		DbQuery.insertResource(db, this, DHelper.cat_soilAmendment, "Limestone");
-		DbQuery.insertResource(db, this, DHelper.cat_soilAmendment, "Sulphur");
-		DbQuery.insertResource(db, this, DHelper.cat_soilAmendment, "Molasses");
-		DbQuery.insertResource(db, this, DHelper.cat_soilAmendment, "Chicken manure");
-		DbQuery.insertResource(db, this, DHelper.cat_soilAmendment, "Horse manure");
-		DbQuery.insertResource(db, this, DHelper.cat_soilAmendment, "Calphos");
-		DbQuery.insertResource(db, this, DHelper.cat_soilAmendment, "Sharp sand");
-	}
-	
-	private void insertDefaultChemicals(SQLiteDatabase db) {
-		//chemical --http://en.wikipedia.org/wiki/Pesticide#Classified_by_type_of_pest
-		DbQuery.insertResource(db, this, DHelper.cat_chemical, "Fungicide");
-		DbQuery.insertResource(db, this, DHelper.cat_chemical, "Insecticide");
-		DbQuery.insertResource(db, this, DHelper.cat_chemical, "Weedicide");
-		DbQuery.insertResource(db, this, DHelper.cat_chemical, "Algicides");
-		DbQuery.insertResource(db, this, DHelper.cat_chemical, "Antimicrobials");
-		DbQuery.insertResource(db, this, DHelper.cat_chemical, "Biopesticides");
-		DbQuery.insertResource(db, this, DHelper.cat_chemical, "Biocides");
-		DbQuery.insertResource(db, this, DHelper.cat_chemical, "Fumigants");
-		DbQuery.insertResource(db, this, DHelper.cat_chemical, "Herbicides");
-		DbQuery.insertResource(db, this, DHelper.cat_chemical, "Miticides");
-		DbQuery.insertResource(db, this, DHelper.cat_chemical, "Microbial pesticides");
-		DbQuery.insertResource(db, this, DHelper.cat_chemical, "Molluscicides");
-		DbQuery.insertResource(db, this, DHelper.cat_chemical, "Nematicides");
-		DbQuery.insertResource(db, this, DHelper.cat_chemical, "Ovicides");
-		DbQuery.insertResource(db, this, DHelper.cat_chemical, "Pheromones");
-		DbQuery.insertResource(db, this, DHelper.cat_chemical, "Repellents");
-		DbQuery.insertResource(db, this, DHelper.cat_chemical, "Rodenticides");
-	}
-	
+//
+//	private void insertDefaultCrops(SQLiteDatabase db) {
+//		//planting material - reference cardi - Caribbean Agricultural Research and Development Institute
+//		ArrayList<String> crops = CropDataHelper.getCrops(ctx);
+//		for (String crop : crops) {
+//			Log.i(TAG_NAME, "Inserting Crop: " + crop + " to database");
+//			DbQuery.insertResource(db, this, DHelper.cat_plantingMaterial, crop);
+//		}
+//	}
+//
+//	private void updateCropList(SQLiteDatabase db) {
+//		//VEGETABLES
+//		DbQuery.insertResource(db, this, DHelper.cat_plantingMaterial, "BHAGI");
+//		DbQuery.insertResource(db, this, DHelper.cat_plantingMaterial, "BORA (BODI) BEAN");
+//		DbQuery.insertResource(db, this, DHelper.cat_plantingMaterial, "CARAILLI");
+//		DbQuery.insertResource(db, this, DHelper.cat_plantingMaterial, "CHOI SUM (CHINESE CABBAGE)");
+//		DbQuery.insertResource(db, this, DHelper.cat_plantingMaterial, "CORN");
+//		DbQuery.insertResource(db, this, DHelper.cat_plantingMaterial, "CUCUMBER");
+//		DbQuery.insertResource(db, this, DHelper.cat_plantingMaterial, "DASHEEN BUSH");
+//		DbQuery.insertResource(db, this, DHelper.cat_plantingMaterial, "GREEN FIG");
+//		DbQuery.insertResource(db, this, DHelper.cat_plantingMaterial, "COWPEA (GUB GUB)");
+//		DbQuery.insertResource(db, this, DHelper.cat_plantingMaterial, "JACK BEAN");
+//		DbQuery.insertResource(db, this, DHelper.cat_plantingMaterial, "JHINGI");
+//		DbQuery.insertResource(db, this, DHelper.cat_plantingMaterial, "LAUKI");
+//		DbQuery.insertResource(db, this, DHelper.cat_plantingMaterial, "RADISH (MOORAI)");
+//		DbQuery.insertResource(db, this, DHelper.cat_plantingMaterial, "OCHRO");
+//		DbQuery.insertResource(db, this, DHelper.cat_plantingMaterial, "PAKCHOY");
+//		DbQuery.insertResource(db, this, DHelper.cat_plantingMaterial, "PIMENTO PEPPER");
+//		DbQuery.insertResource(db, this, DHelper.cat_plantingMaterial, "PLANTAIN");
+//		DbQuery.insertResource(db, this, DHelper.cat_plantingMaterial, "VINE SPINACH (POI BHAGI)");
+//		DbQuery.insertResource(db, this, DHelper.cat_plantingMaterial, "PUMPKIN");
+//		DbQuery.insertResource(db, this, DHelper.cat_plantingMaterial, "SAIJAN");
+//		DbQuery.insertResource(db, this, DHelper.cat_plantingMaterial, "SATPUTIYA");
+//		DbQuery.insertResource(db, this, DHelper.cat_plantingMaterial, "SEIM");
+//		DbQuery.insertResource(db, this, DHelper.cat_plantingMaterial, "STRING BEAN");
+//		DbQuery.insertResource(db, this, DHelper.cat_plantingMaterial, "SQUASH");
+//		DbQuery.insertResource(db, this, DHelper.cat_plantingMaterial, "TOMATO");
+//		DbQuery.insertResource(db, this, DHelper.cat_plantingMaterial, "WATERCRESS");
+//		DbQuery.insertResource(db, this, DHelper.cat_plantingMaterial, "WING BEAN");
+//
+//		//ROOT CROPS
+//		DbQuery.insertResource(db, this, DHelper.cat_plantingMaterial, "BEET");
+//		DbQuery.insertResource(db, this, DHelper.cat_plantingMaterial, "CUSH CUSH");
+//		DbQuery.insertResource(db, this, DHelper.cat_plantingMaterial, "GINGER");
+//		DbQuery.insertResource(db, this, DHelper.cat_plantingMaterial, "LEREN (TOPI TAMBU)");
+//		DbQuery.insertResource(db, this, DHelper.cat_plantingMaterial, "TUMERIC (SAFFRON)");
+//
+//		//herbs
+//		DbQuery.insertResource(db, this, DHelper.cat_plantingMaterial, "ANISE SEED");
+//		DbQuery.insertResource(db, this, DHelper.cat_plantingMaterial, "BASIL");
+//		DbQuery.insertResource(db, this, DHelper.cat_plantingMaterial, "BAY LEAF");
+//		DbQuery.insertResource(db, this, DHelper.cat_plantingMaterial, "CELERY");
+//		DbQuery.insertResource(db, this, DHelper.cat_plantingMaterial, "CHIVE");
+//		DbQuery.insertResource(db, this, DHelper.cat_plantingMaterial, "CURRY LEAF");
+//		DbQuery.insertResource(db, this, DHelper.cat_plantingMaterial, "DILL");
+//		DbQuery.insertResource(db, this, DHelper.cat_plantingMaterial, "FENNEL");
+//		DbQuery.insertResource(db, this, DHelper.cat_plantingMaterial, "MARJORAM");
+//		DbQuery.insertResource(db, this, DHelper.cat_plantingMaterial, "MINT");
+//		DbQuery.insertResource(db, this, DHelper.cat_plantingMaterial, "OREGANO");
+//		DbQuery.insertResource(db, this, DHelper.cat_plantingMaterial, "PARSLEY");
+//		DbQuery.insertResource(db, this, DHelper.cat_plantingMaterial, "ROSEMARY");
+//		DbQuery.insertResource(db, this, DHelper.cat_plantingMaterial, "CULANTRO (SHADON BENI / BANDANIA)");
+//		DbQuery.insertResource(db, this, DHelper.cat_plantingMaterial, "TARRAGON");
+//		DbQuery.insertResource(db, this, DHelper.cat_plantingMaterial, "THYME - FRENCH");
+//		DbQuery.insertResource(db, this, DHelper.cat_plantingMaterial, "THYME - SPANISH");
+//		DbQuery.insertResource(db, this, DHelper.cat_plantingMaterial, "THYME - FINE");
+//
+//
+//		DbQuery.insertResource(db, this, DHelper.cat_plantingMaterial, "PAW PAW");
+//		DbQuery.insertResource(db, this, DHelper.cat_plantingMaterial, "PEANUTS");
+//		DbQuery.insertResource(db, this, DHelper.cat_plantingMaterial, "NUTMEG");
+//		DbQuery.insertResource(db, this, DHelper.cat_plantingMaterial, "BANANA");
+//		DbQuery.insertResource(db, this, DHelper.cat_plantingMaterial, "BREADFRUIT");
+//		DbQuery.insertResource(db, this, DHelper.cat_plantingMaterial, "BREADNUT (CHATAIGNE)");
+//		DbQuery.insertResource(db, this, DHelper.cat_plantingMaterial, "CHERRY");
+//		DbQuery.insertResource(db, this, DHelper.cat_plantingMaterial, "CARAMBOLA");
+//
+//		DbQuery.insertResource(db, this, DHelper.cat_plantingMaterial, "PUMPKIN");
+//
+//	}
+//
+//	private void insertDefaultFertilizers(SQLiteDatabase db) {
+//		//fertilizers -Plant Doctors tt
+//		DbQuery.insertResource(db, this, DHelper.cat_fertilizer, "Fersan (7.12.40 + 1TEM)");
+//		DbQuery.insertResource(db, this, DHelper.cat_fertilizer, "Magic Grow (7.12.40 + TE HYDROPHONIC)");
+//		DbQuery.insertResource(db, this, DHelper.cat_fertilizer, "Hydro YARA Liva (15.0.15)");
+//		DbQuery.insertResource(db, this, DHelper.cat_fertilizer, "Techni - Grow (7.12.27 + TE)");
+//		DbQuery.insertResource(db, this, DHelper.cat_fertilizer, "Ferqidd (10.13.32 + TE)");
+//		DbQuery.insertResource(db, this, DHelper.cat_fertilizer, "Plant Prod (7.12.27 + TE)");
+//		DbQuery.insertResource(db, this, DHelper.cat_fertilizer, "Flower Plus (9.18.36 + TE)");
+//		DbQuery.insertResource(db, this, DHelper.cat_fertilizer, "Iron Chelate Powder (FE - EDTA)");
+//		DbQuery.insertResource(db, this, DHelper.cat_fertilizer, "Magnesium Sulphate (Mg SO4)");
+//		DbQuery.insertResource(db, this, DHelper.cat_fertilizer, "12-24-12 FERTILIZER");
+//		DbQuery.insertResource(db, this, DHelper.cat_fertilizer, "HARVEST MORE 10-55-10");
+//		DbQuery.insertResource(db, this, DHelper.cat_fertilizer, "HARVEST MORE 13-0-44");
+//		DbQuery.insertResource(db, this, DHelper.cat_fertilizer, "HARVEST MORE 5-5-45");
+//		DbQuery.insertResource(db, this, DHelper.cat_fertilizer, "NPK 12-12-17");
+//		DbQuery.insertResource(db, this, DHelper.cat_fertilizer, "UREA 46-0-0");
+//		DbQuery.insertResource(db, this, DHelper.cat_fertilizer, "PLANT BOOSTER");
+//		DbQuery.insertResource(db, this, DHelper.cat_fertilizer, "MIRACLE GRO ALL PROPOSE PLANT FOOD");
+//		DbQuery.insertResource(db, this, DHelper.cat_fertilizer, "SCOTTS FLOWER AND VEGETABLE PLANT FOOD");
+//	}
+//
+//	private void insertDefaultSoilAdds(SQLiteDatabase db) {
+//		//soil amendments -Plant Doctors tt
+//		DbQuery.insertResource(db, this, DHelper.cat_soilAmendment, "Cow manure");
+//		DbQuery.insertResource(db, this, DHelper.cat_soilAmendment, "Compost");
+//		DbQuery.insertResource(db, this, DHelper.cat_soilAmendment, "Gypsum");
+//		DbQuery.insertResource(db, this, DHelper.cat_soilAmendment, "Limestone");
+//		DbQuery.insertResource(db, this, DHelper.cat_soilAmendment, "Sulphur");
+//		DbQuery.insertResource(db, this, DHelper.cat_soilAmendment, "Molasses");
+//		DbQuery.insertResource(db, this, DHelper.cat_soilAmendment, "Chicken manure");
+//		DbQuery.insertResource(db, this, DHelper.cat_soilAmendment, "Horse manure");
+//		DbQuery.insertResource(db, this, DHelper.cat_soilAmendment, "Calphos");
+//		DbQuery.insertResource(db, this, DHelper.cat_soilAmendment, "Sharp sand");
+//	}
+//
+//	private void insertDefaultChemicals(SQLiteDatabase db) {
+//		//chemical --http://en.wikipedia.org/wiki/Pesticide#Classified_by_type_of_pest
+//		DbQuery.insertResource(db, this, DHelper.cat_chemical, "Fungicide");
+//		DbQuery.insertResource(db, this, DHelper.cat_chemical, "Insecticide");
+//		DbQuery.insertResource(db, this, DHelper.cat_chemical, "Weedicide");
+//		DbQuery.insertResource(db, this, DHelper.cat_chemical, "Algicides");
+//		DbQuery.insertResource(db, this, DHelper.cat_chemical, "Antimicrobials");
+//		DbQuery.insertResource(db, this, DHelper.cat_chemical, "Biopesticides");
+//		DbQuery.insertResource(db, this, DHelper.cat_chemical, "Biocides");
+//		DbQuery.insertResource(db, this, DHelper.cat_chemical, "Fumigants");
+//		DbQuery.insertResource(db, this, DHelper.cat_chemical, "Herbicides");
+//		DbQuery.insertResource(db, this, DHelper.cat_chemical, "Miticides");
+//		DbQuery.insertResource(db, this, DHelper.cat_chemical, "Microbial pesticides");
+//		DbQuery.insertResource(db, this, DHelper.cat_chemical, "Molluscicides");
+//		DbQuery.insertResource(db, this, DHelper.cat_chemical, "Nematicides");
+//		DbQuery.insertResource(db, this, DHelper.cat_chemical, "Ovicides");
+//		DbQuery.insertResource(db, this, DHelper.cat_chemical, "Pheromones");
+//		DbQuery.insertResource(db, this, DHelper.cat_chemical, "Repellents");
+//		DbQuery.insertResource(db, this, DHelper.cat_chemical, "Rodenticides");
+//	}
+//
 	private void insertDefaultCountries(SQLiteDatabase db) {
 		for (String [] country : CountryContract.countries){
 			DbQuery.insertCountry(db, country[0], country[1]);

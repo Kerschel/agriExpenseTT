@@ -14,7 +14,7 @@ import uwi.dcit.AgriExpenseTT.helpers.DbHelper;
 public class FertilizerHelper extends Helper{
 
     public FertilizerHelper(Context context, SQLiteDatabase db, DbHelper dbh) {
-        super(DHelper.cat_plantingMaterial, R.raw.plantingmat);
+        super(DHelper.cat_fertilizer, R.raw.fertilizers);
         super.populate(context,db,dbh);
     }
 }

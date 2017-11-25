@@ -14,6 +14,11 @@ public class HelperFactory {
     private SQLiteDatabase db;
     private DbHelper dbh;
 
+    public HelperFactory(Context context,SQLiteDatabase db, DbHelper dbh){
+        this.context = context;
+        this.db = db;
+        this.dbh = dbh;
+    }
 
     public Helper getHelper(String helptype) {
         if (helptype == null) return null;
@@ -25,6 +30,8 @@ public class HelperFactory {
                 return new ChemicalHelper(context,db,dbh);
             case "crops":
                 return new CropPlantHelper(context,db,dbh);
+            case "soil":
+                return new SoilHelper(context,db,dbh);
             default:
                 return new GeneralHelper(context,db,dbh,helptype);
         }

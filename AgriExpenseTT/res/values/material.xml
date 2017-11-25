@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array
+        name="string_array_name">
+        <item>crops</item>
+        <item>fertilizers</item>
+        <item>chemicals</item>
+        <item>other</item>
+    </string-array>
+</resources>

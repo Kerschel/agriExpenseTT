@@ -1,5 +1,4 @@
 {
-  "SOIL AMMENDMENTS": {
     "list": [
     "Cow manure",
     "Compost",
@@ -14,4 +13,4 @@
     ],
   "umits": ["Bag", "Truck"]
   }
-}
+

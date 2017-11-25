@@ -60,7 +60,10 @@ public abstract class Helper {
     }
 
     public void populate(Context context, SQLiteDatabase db, DbHelper dbh){
+        System.out.println("We are here now ");
         materials = getJson(context);
+        System.out.println(materials);
+
         JSONArray array = null;
         try {
             array = materials.getJSONArray("list"); // Gets the name of all categories of materials
@@ -69,6 +72,9 @@ public abstract class Helper {
             }
         } catch (JSONException e) {
             e.printStackTrace();
+            System.out.println("We are here now 2");
+            System.out.println(e.toString());
+
         }
     }
 
