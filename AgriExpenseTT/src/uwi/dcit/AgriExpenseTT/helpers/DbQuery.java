@@ -40,7 +40,7 @@ public class DbQuery {
 		return getLast(db, dbh, ResourceContract.ResourceEntry.TABLE_NAME);
 	}
 
-	//this is for when the farmer buys any material crop, fertilizer, chemical NOT WHEN HE USES
+	//this is for when the farmer buys any material crop, fertilizers, chemical NOT WHEN HE USES
 	public static int insertResourceExp(SQLiteDatabase db, DbHelper dbh, String type, int resourceId, String quantifier, double qty, double cost, TransactionLog tl){
 		ContentValues cv= new ContentValues();
 		cv.put(ResourcePurchaseEntry.RESOURCE_PURCHASE_RESID, resourceId);

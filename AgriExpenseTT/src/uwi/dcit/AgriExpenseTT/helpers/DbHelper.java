@@ -50,6 +50,7 @@ public class DbHelper extends SQLiteOpenHelper{
 		//We will be required to implement upgrade functionality that is specific to each version of the upgrade
 		Log.i(TAG_NAME, "Upgrade detected. Old version: "+ oldVersion + " New version: "+newVersion);
 
+
 		if (oldVersion < 174){ // Made Changes that are incompatible and data will be dropped
 			this.dropTables(db);
 			this.onCreate(db);
@@ -342,7 +343,7 @@ public class DbHelper extends SQLiteOpenHelper{
 	}
 	
 	private void insertDefaultFertilizers(SQLiteDatabase db) {
-		//fertilizer -Plant Doctors tt
+		//fertilizers -Plant Doctors tt
 		DbQuery.insertResource(db, this, DHelper.cat_fertilizer, "Fersan (7.12.40 + 1TEM)");
 		DbQuery.insertResource(db, this, DHelper.cat_fertilizer, "Magic Grow (7.12.40 + TE HYDROPHONIC)");
 		DbQuery.insertResource(db, this, DHelper.cat_fertilizer, "Hydro YARA Liva (15.0.15)");

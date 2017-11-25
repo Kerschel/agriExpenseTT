@@ -1,0 +1,30 @@
+{
+  "CHEMICALS": {
+    "list": [
+      "Algicides",
+      "Antimicrobials",
+      "Biocides",
+      "Biopesticies",
+      "Fumigants",
+      "Fungicide",
+      "Herbicides",
+      "Insecticide",
+      "Microbial pesticides",
+      "Miticides",
+      "Molluscicides",
+      "Nematicides",
+      "Ovicides",
+      "Pheromones",
+      "Repellents",
+      "Rodenticides",
+      "Weedicides"
+    ],
+    "units": [
+      "Litres(L)",
+      "grams(g)",
+      "Kilograms(Kg)",
+      "millilitres(ml)",
+      "ounces(oz)"
+    ]
+  }
+}

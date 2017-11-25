@@ -1,0 +1,17 @@
+{
+  "SOIL AMMENDMENTS": {
+    "list": [
+    "Cow manure",
+    "Compost",
+    "Gypsum",
+    "Limestone",
+    "Sulphur",
+    "Molasses",
+    "Chicken manure",
+    "Horse manure",
+    "Calphos",
+    "Sharp sand"
+    ],
+  "umits": ["Bag", "Truck"]
+  }
+}
