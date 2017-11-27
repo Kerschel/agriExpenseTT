@@ -250,11 +250,11 @@ public class DbHelper extends SQLiteOpenHelper{
 	}
 	
 	private void populate(SQLiteDatabase db, TransactionLog tL) {
-		HelperFactory data = new HelperFactory(ctx,db,this);
-		Helper chemicals = data.getHelper("chemicals");
-		Helper soil = data.getHelper("soil");
-		Helper fertilizer = data.getHelper("fertilizes");
-		Helper planting = data.getHelper("crops");
+		HelperFactory factory = new HelperFactory(ctx,db,this);
+		Helper chemicals = factory.getHelper("chemicals");
+		Helper soil = factory.getHelper("soil");
+		Helper fertilizer = factory.getHelper("fertilizes");
+		Helper planting = factory.getHelper("crops");
 
 //		insertDefaultCrops(db);
 //		insertDefaultFertilizers(db);
@@ -362,7 +362,7 @@ public class DbHelper extends SQLiteOpenHelper{
 //		DbQuery.insertResource(db, this, DHelper.cat_fertilizer, "NPK 12-12-17");
 //		DbQuery.insertResource(db, this, DHelper.cat_fertilizer, "UREA 46-0-0");
 //		DbQuery.insertResource(db, this, DHelper.cat_fertilizer, "PLANT BOOSTER");
-//		DbQuery.insertResource(db, this, DHelper.cat_fertilizer, "MIRACLE GRO ALL PROPOSE PLANT FOOD");
+//		DbQuery.insertResource(db, this, DHelper.cat_fertilizer , "MIRACLE GRO ALL PROPOSE PLANT FOOD");
 //		DbQuery.insertResource(db, this, DHelper.cat_fertilizer, "SCOTTS FLOWER AND VEGETABLE PLANT FOOD");
 //	}
 //

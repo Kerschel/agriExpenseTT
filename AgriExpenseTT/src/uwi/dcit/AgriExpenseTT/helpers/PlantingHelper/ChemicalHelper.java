@@ -5,6 +5,8 @@ import android.database.sqlite.SQLiteDatabase;
 
 import org.json.JSONObject;
 
+import java.util.HashMap;
+
 import uwi.dcit.AgriExpenseTT.R;
 import uwi.dcit.AgriExpenseTT.helpers.DHelper;
 import uwi.dcit.AgriExpenseTT.helpers.DbHelper;
@@ -19,5 +21,6 @@ public class ChemicalHelper extends Helper {
         super(DHelper.cat_chemical, R.raw.chemicals);
         super.populate(context,db,dbh);
     }
+
 
 }

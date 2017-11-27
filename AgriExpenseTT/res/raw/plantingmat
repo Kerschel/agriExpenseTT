@@ -58,8 +58,7 @@
       "BREADFRUIT",
       "BREADNUT (CHATAIGNE)",
       "CHERRY",
-      "CARAMBOLA",
-      "PUMPKIN"
+      "CARAMBOLA"
     ],
     "units": ["Heads", "Seed", "Seedling", "Slips", "Stick", "Tubes"]
   }
