@@ -22,6 +22,7 @@ import uwi.dcit.AgriExpenseTT.helpers.DbQuery;
  */
 
 public class CropPlantHelper extends Helper {
+
     public CropPlantHelper(Context context, SQLiteDatabase db, DbHelper dbh){
         super(DHelper.cat_plantingMaterial, R.raw.plantingmat);
         super.populate(context,db,dbh);
@@ -29,15 +30,12 @@ public class CropPlantHelper extends Helper {
 
     public CropPlantHelper(){
         super(DHelper.cat_plantingMaterial, R.raw.plantingmat);
-
     }
 
     @Override
-    public void addToResource(Context context,HashMap<String,Integer> resources){
+    public void addImage(Context context,HashMap<String,Integer> resources){
         JSONObject materials = getJson(context);
         JSONArray array = null;
-
-
         try {
             array = materials.getJSONArray("list"); // Gets the name of all categories of materials
             String strings[] = new String[array.length()];

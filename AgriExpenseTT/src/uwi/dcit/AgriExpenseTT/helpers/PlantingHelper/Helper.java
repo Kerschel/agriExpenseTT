@@ -99,7 +99,7 @@ public abstract class Helper {
         }
     }
 
-    public void addToResource(Context context,HashMap<String,Integer> resources){
+    public void addImage(Context context,HashMap<String,Integer> resources){
 
     }
 

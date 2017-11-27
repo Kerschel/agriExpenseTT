@@ -30,6 +30,7 @@ public class CropDataHelper {
 		resources = new HashMap<String, Integer>();
 		populateResources(ctx);
 	}
+
 	private static JSONObject getCropsJSON(Context context) throws IOException {
 		InputStream is = context.getResources().openRawResource(R.raw.crops);
 		Writer writer = new StringWriter();
@@ -88,7 +89,7 @@ public class CropDataHelper {
 	private void populateResources(Context ctx){
 		HelperFactory factory = new HelperFactory();
 		Helper planting = factory.getHelper("cropsresource");
-		planting.addToResource(ctx,resources);
+		planting.addImage(ctx,resources);
 //		resources.put("ANISE SEED",R.drawable.anise_seed);
 //		resources.put("BANANA",R.drawable.banana);
 ////		resources.put("BASIL",R.drawable);
