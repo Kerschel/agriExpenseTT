@@ -44,6 +44,7 @@ import uwi.dcit.AgriExpenseTT.helpers.DateFormatHelper;
 import uwi.dcit.AgriExpenseTT.helpers.DbHelper;
 import uwi.dcit.AgriExpenseTT.helpers.DbQuery;
 import uwi.dcit.AgriExpenseTT.helpers.NavigationControl;
+import uwi.dcit.AgriExpenseTT.helpers.PlantingHelper.DbAdder;
 import uwi.dcit.AgriExpenseTT.models.CycleContract;
 import uwi.dcit.AgriExpenseTT.models.LocalCycle;
 
@@ -424,8 +425,8 @@ public class FragmentViewCycles extends ListFragment{
 			if(closed.equals("closed")){
 				((ImageView)row.findViewById(R.id.icon_crop)).setImageResource(R.drawable.ic_launcher_web);
 			} else {
-				CropDataHelper c = new CropDataHelper(myContext);
-				int id = c.getResourceId(cropName);
+//				CropDataHelper c = new CropDataHelper(myContext);
+				int id = DbAdder.getResourceId(cropName);
 				ImageView iv = ((ImageView) row.findViewById(R.id.icon_crop));
 				if (id != -1) {
 					iv.setImageResource(id);

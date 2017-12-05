@@ -19,7 +19,6 @@ public class ChemicalHelper extends Helper {
 
     public ChemicalHelper(Context context, SQLiteDatabase db, DbHelper dbh) {
         super(DHelper.cat_chemical, R.raw.chemicals);
-        super.populate(context,db,dbh);
     }
 
 

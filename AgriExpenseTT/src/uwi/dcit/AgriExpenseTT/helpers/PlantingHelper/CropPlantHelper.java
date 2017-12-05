@@ -25,34 +25,13 @@ public class CropPlantHelper extends Helper {
 
     public CropPlantHelper(Context context, SQLiteDatabase db, DbHelper dbh){
         super(DHelper.cat_plantingMaterial, R.raw.plantingmat);
-        super.populate(context,db,dbh);
     }
 
     public CropPlantHelper(){
         super(DHelper.cat_plantingMaterial, R.raw.plantingmat);
     }
 
-    @Override
-    public void addImage(Context context,HashMap<String,Integer> resources){
-        JSONObject materials = getJson(context);
-        JSONArray array = null;
-        try {
-            array = materials.getJSONArray("list"); // Gets the name of all categories of materials
-            String strings[] = new String[array.length()];
-            for(int i=0;i<strings.length;i++) {
-                strings[i] = array.getString(i);
-            }
-            for(String name:strings){
-                 int drawableId = getDrawableId(name.toLowerCase().replace(" ","_"));
-                 if(drawableId!=-1)
-                 resources.put(name,drawableId);
-            }
 
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-    }
 
 
 }

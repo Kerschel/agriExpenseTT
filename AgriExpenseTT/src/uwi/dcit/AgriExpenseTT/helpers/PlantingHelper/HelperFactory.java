@@ -30,20 +30,25 @@ public class HelperFactory {
     public Helper getHelper(String helptype) {
         if (helptype == null) return null;
         helptype = helptype.toLowerCase();
-        switch (helptype) {
-            case "fertilizes":
-                return new FertilizerHelper(context,db,dbh);
-            case "chemicals":
-                return new ChemicalHelper(context,db,dbh);
-            case "crops":
-                return new CropPlantHelper(context,db,dbh);
-            case "cropsresource":
-                return new CropPlantHelper();
-            case "soil":
-                return new SoilHelper(context,db,dbh);
-            default:
-                return new GeneralHelper(context,db,dbh,helptype);
+        try {
+            switch (helptype) {
+                case "fertilizes":
+                    return new FertilizerHelper(context, db, dbh);
+                case "chemicals":
+                    return new ChemicalHelper(context, db, dbh);
+                case "crops":
+                    return new CropPlantHelper(context, db, dbh);
+                case "cropsresource":
+                    return new CropPlantHelper();
+                case "soil":
+                    return new SoilHelper(context, db, dbh);
+                default:
+                    return new GeneralHelper(context, db, dbh, helptype);
+            }
         }
-
+        catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 }
