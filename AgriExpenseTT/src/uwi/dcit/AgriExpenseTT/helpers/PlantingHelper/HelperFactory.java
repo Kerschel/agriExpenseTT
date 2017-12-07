@@ -14,16 +14,15 @@ public class HelperFactory {
     private SQLiteDatabase db;
     private DbHelper dbh;
 
-    public HelperFactory(Context context,SQLiteDatabase db, DbHelper dbh){
+
+    public HelperFactory(Context ctx, SQLiteDatabase db){
         this.context = context;
-        this.db = db;
+        this.db = this.db;
         this.dbh = dbh;
     }
 
-    public HelperFactory(){
-        this.context = context;
-        this.db = db;
-        this.dbh = dbh;
+    public HelperFactory() {
+
     }
 
 
@@ -33,17 +32,17 @@ public class HelperFactory {
         try {
             switch (helptype) {
                 case "fertilizes":
-                    return new FertilizerHelper(context, db, dbh);
+                    return new FertilizerHelper(context, db);
                 case "chemicals":
-                    return new ChemicalHelper(context, db, dbh);
+                    return new ChemicalHelper(context, db);
                 case "crops":
-                    return new CropPlantHelper(context, db, dbh);
+                    return new CropPlantHelper(context, db);
                 case "cropsresource":
                     return new CropPlantHelper();
                 case "soil":
-                    return new SoilHelper(context, db, dbh);
+                    return new SoilHelper(context, db);
                 default:
-                    return new GeneralHelper(context, db, dbh, helptype);
+                    return null;
             }
         }
         catch (Exception e) {

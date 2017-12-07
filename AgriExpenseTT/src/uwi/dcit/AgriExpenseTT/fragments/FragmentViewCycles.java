@@ -425,8 +425,8 @@ public class FragmentViewCycles extends ListFragment{
 			if(closed.equals("closed")){
 				((ImageView)row.findViewById(R.id.icon_crop)).setImageResource(R.drawable.ic_launcher_web);
 			} else {
-//				CropDataHelper c = new CropDataHelper(myContext);
-				int id = DbAdder.getResourceId(cropName);
+				CropDataHelper c = new CropDataHelper(myContext);
+				int id = c.getResourceId(cropName);
 				ImageView iv = ((ImageView) row.findViewById(R.id.icon_crop));
 				if (id != -1) {
 					iv.setImageResource(id);

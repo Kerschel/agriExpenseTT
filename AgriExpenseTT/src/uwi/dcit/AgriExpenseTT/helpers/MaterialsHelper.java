@@ -44,7 +44,7 @@ public class MaterialsHelper {
             JSONArray material = new JSONArray(currentObject.get("list"));
             // Material Name
             for (int i=0;i<= material.length();i++) {
-                DbQuery.insertResource(db, dbh, materialType, material.getString(i));
+                DbQuery.insertResource(db, materialType, material.getString(i));
             }
         } catch(JSONException exception){
         }

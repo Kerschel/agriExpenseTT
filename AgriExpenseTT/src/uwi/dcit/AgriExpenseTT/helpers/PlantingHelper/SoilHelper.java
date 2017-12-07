@@ -12,7 +12,7 @@ import uwi.dcit.AgriExpenseTT.helpers.DbHelper;
  */
 
 public class SoilHelper extends Helper {
-    public SoilHelper (Context context, SQLiteDatabase db, DbHelper dbh) {
+    public SoilHelper (Context context, SQLiteDatabase db) {
         super(DHelper.cat_soilAmendment, R.raw.soilammendments);
 
     }

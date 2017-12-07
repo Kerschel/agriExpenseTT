@@ -85,13 +85,13 @@ public abstract class Helper {
         }
     }
 
-    public void populate(Context context, SQLiteDatabase db, DbHelper dbh){
+    public void populate(Context context, SQLiteDatabase db){
         materials = getJson(context);
         JSONArray array = null;
         try {
             array = materials.getJSONArray("list"); // Gets the name of all categories of materials
             for(int i = 0; i < array.length(); i++){
-                DbQuery.insertResource(db, dbh, type, array.getString(i));
+                DbQuery.insertResource(db,type, array.getString(i));
             }
         } catch (JSONException e) {
             e.printStackTrace();

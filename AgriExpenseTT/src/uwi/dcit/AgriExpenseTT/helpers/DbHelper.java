@@ -46,7 +46,7 @@ public class DbHelper extends SQLiteOpenHelper{
 	public void onCreate(SQLiteDatabase db) {
         Log.i(TAG_NAME, "Creating AgriExpense DB for first time");
 		createDb(db);
-		materials = new DbAdder(ctx, db,this);
+		materials = new DbAdder(ctx, db);
 		materials.populate();
 		insertDefaultCountries(db);
 		insertDefaultCounties(db);

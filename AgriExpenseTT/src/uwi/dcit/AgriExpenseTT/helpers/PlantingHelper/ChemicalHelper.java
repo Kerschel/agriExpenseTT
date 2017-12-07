@@ -17,7 +17,7 @@ import uwi.dcit.AgriExpenseTT.helpers.DbHelper;
 
 public class ChemicalHelper extends Helper {
 
-    public ChemicalHelper(Context context, SQLiteDatabase db, DbHelper dbh) {
+    public ChemicalHelper(Context context, SQLiteDatabase db) {
         super(DHelper.cat_chemical, R.raw.chemicals);
     }
 

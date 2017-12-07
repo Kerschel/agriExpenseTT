@@ -18,7 +18,7 @@ public class DbAdder {
     private Context ctx;
     private SQLiteDatabase db;
     private DbHelper dbh;
-    public DbAdder(Context ctx, SQLiteDatabase db,DbHelper dbh) {
+    public DbAdder(Context ctx, SQLiteDatabase db) {
         resources = new HashMap<String, Integer>();
         this.ctx = ctx;
         this.db = db;
@@ -26,7 +26,7 @@ public class DbAdder {
     }
 
     public void populate(){
-        HelperFactory factory = new HelperFactory(ctx,db,dbh);
+        HelperFactory factory = new HelperFactory(ctx,db);
         ArrayList<Helper> helpFactory = new ArrayList<Helper>();
         helpFactory.add(factory.getHelper("chemicals"));
         helpFactory.add(factory.getHelper("soil"));
@@ -34,8 +34,8 @@ public class DbAdder {
         helpFactory.add(factory.getHelper("crops"));
 
         for(Helper help:helpFactory){
-            help.populate(ctx,db,dbh);
-            help.addImage(ctx,resources);
+            help.populate(ctx,db);
+//            help.addImage(ctx,resources);
         }
 
     }

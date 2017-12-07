@@ -23,7 +23,7 @@ import uwi.dcit.AgriExpenseTT.helpers.DbQuery;
 
 public class CropPlantHelper extends Helper {
 
-    public CropPlantHelper(Context context, SQLiteDatabase db, DbHelper dbh){
+    public CropPlantHelper(Context context, SQLiteDatabase db){
         super(DHelper.cat_plantingMaterial, R.raw.plantingmat);
     }
 
