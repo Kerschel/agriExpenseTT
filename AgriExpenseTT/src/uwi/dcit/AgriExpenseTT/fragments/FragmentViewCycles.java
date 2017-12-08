@@ -37,7 +37,7 @@ import uwi.dcit.AgriExpenseTT.EditCycle;
 import uwi.dcit.AgriExpenseTT.HireLabour;
 import uwi.dcit.AgriExpenseTT.NewCycle;
 import uwi.dcit.AgriExpenseTT.R;
-import uwi.dcit.AgriExpenseTT.helpers.CropDataHelper;
+import uwi.dcit.AgriExpenseTT.helpers.CropImageHelper;
 import uwi.dcit.AgriExpenseTT.helpers.DHelper;
 import uwi.dcit.AgriExpenseTT.helpers.DataManager;
 import uwi.dcit.AgriExpenseTT.helpers.DateFormatHelper;
@@ -425,7 +425,7 @@ public class FragmentViewCycles extends ListFragment{
 			if(closed.equals("closed")){
 				((ImageView)row.findViewById(R.id.icon_crop)).setImageResource(R.drawable.ic_launcher_web);
 			} else {
-				CropDataHelper c = new CropDataHelper(myContext);
+				CropImageHelper c = new CropImageHelper(myContext);
 				int id = c.getResourceId(cropName);
 				ImageView iv = ((ImageView) row.findViewById(R.id.icon_crop));
 				if (id != -1) {

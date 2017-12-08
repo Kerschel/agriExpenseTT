@@ -17,14 +17,13 @@ public class DbAdder {
     public static HashMap<String,Integer> resources;
     private Context ctx;
     private SQLiteDatabase db;
-    private DbHelper dbh;
+
     public DbAdder(Context ctx, SQLiteDatabase db) {
         resources = new HashMap<String, Integer>();
         this.ctx = ctx;
         this.db = db;
-        this.dbh = dbh;
     }
-
+// Implementation to populate the database with the types of materials
     public void populate(){
         HelperFactory factory = new HelperFactory(ctx,db);
         ArrayList<Helper> helpFactory = new ArrayList<Helper>();
@@ -35,14 +34,9 @@ public class DbAdder {
 
         for(Helper help:helpFactory){
             help.populate(ctx,db);
-//            help.addImage(ctx,resources);
         }
 
     }
 
-    public static Integer getResourceId(String key){
-        if(resources.containsKey(key))
-            return resources.get(key);
-        return R.drawable.plant;
-    }
+
 }

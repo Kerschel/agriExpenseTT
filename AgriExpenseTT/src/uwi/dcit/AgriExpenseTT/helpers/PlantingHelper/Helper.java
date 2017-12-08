@@ -39,14 +39,17 @@ public abstract class Helper {
     private JSONObject  materials;
     private int filename;
     private String type;
+    private String fieldname = "list";
 
     public Helper (String type, int filename){
     this.type = type;
     this.filename = filename;
     }
 
-
-
+// allows the user to specify the name of the field in the json file
+    public void setFieldname(String fieldname){
+        this.fieldname = fieldname;
+    }
     public int getDrawableId(String name){
         try {
             Field fld = R.drawable.class.getField(name);
@@ -85,11 +88,12 @@ public abstract class Helper {
         }
     }
 
+    // Reads the json file and looks for the fieldname and extracts the list of data from it
     public void populate(Context context, SQLiteDatabase db){
         materials = getJson(context);
         JSONArray array = null;
         try {
-            array = materials.getJSONArray("list"); // Gets the name of all categories of materials
+            array = materials.getJSONArray(fieldname); // Gets the name of all categories of materials
             for(int i = 0; i < array.length(); i++){
                 DbQuery.insertResource(db,type, array.getString(i));
             }
@@ -104,7 +108,7 @@ public abstract class Helper {
         JSONObject materials = getJson(context);
         JSONArray array = null;
         try {
-            array = materials.getJSONArray("list"); // Gets the name of all categories of materials
+            array = materials.getJSONArray(fieldname); // Gets the name of all categories of materials
             String strings[] = new String[array.length()];
             for(int i=0;i<strings.length;i++) {
                 strings[i] = array.getString(i);
@@ -118,8 +122,12 @@ public abstract class Helper {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
     }
 
 
+    public Integer getResourceId(String key,HashMap<String,Integer> resources){
+        if(resources.containsKey(key))
+            return resources.get(key);
+        return R.drawable.plant;
+    }
 }
