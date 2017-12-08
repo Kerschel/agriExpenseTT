@@ -17,11 +17,14 @@ import uwi.dcit.AgriExpenseTT.R;
 import uwi.dcit.AgriExpenseTT.helpers.DHelper;
 import uwi.dcit.AgriExpenseTT.helpers.DataManager;
 import uwi.dcit.AgriExpenseTT.helpers.NotifyHelper;
+import uwi.dcit.AgriExpenseTT.helpers.ResourceManager;
 import uwi.dcit.AgriExpenseTT.helpers.TextHelper;
+import uwi.dcit.AgriExpenseTT.models.LocalResource;
 
 
 public class FragmentAddDataLast extends Fragment {
 	DataManager dm;
+	DataManager resourceManager;
 	View view;
 	EditText et_name;
 	TextView tv_error;
@@ -29,7 +32,8 @@ public class FragmentAddDataLast extends Fragment {
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
-		dm = new DataManager(getActivity());
+		//Removed for Project dm = new DataManager(getActivity());
+		resourceManager = new ResourceManager(getActivity());
 		view = inflater.inflate(R.layout.fragment_adddata, container, false);
 		this.context = this.getContext();
 		setup();
@@ -67,7 +71,9 @@ public class FragmentAddDataLast extends Fragment {
 				}
 				new Thread(new Runnable() {
                     public void run() {
-                        dm.insertResource(TextHelper.formatUserText(et_name.getText().toString()), getArguments().getString("type"));
+                        //Removed for Project dm.insertResource(TextHelper.formatUserText(et_name.getText().toString()), getArguments().getString("type"));
+						LocalResource resource = new LocalResource(TextHelper.formatUserText(et_name.getText().toString()), getArguments().getString("type"));
+						resourceManager.insert(resource);
                         getActivity().runOnUiThread(new Runnable() {
                             public void run() {
                                 NotifyHelper.notify(getActivity(),getArguments().getString("type") + " Saved" );

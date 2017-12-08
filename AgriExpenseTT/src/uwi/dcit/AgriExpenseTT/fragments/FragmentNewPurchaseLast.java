@@ -26,15 +26,18 @@ import java.util.Calendar;
 import uwi.dcit.AgriExpenseTT.Main;
 import uwi.dcit.AgriExpenseTT.NewPurchase;
 import uwi.dcit.AgriExpenseTT.R;
+import uwi.dcit.AgriExpenseTT.helpers.CycleManager;
 import uwi.dcit.AgriExpenseTT.helpers.DHelper;
 import uwi.dcit.AgriExpenseTT.helpers.DataManager;
 import uwi.dcit.AgriExpenseTT.helpers.DateFormatHelper;
 import uwi.dcit.AgriExpenseTT.helpers.DbHelper;
 import uwi.dcit.AgriExpenseTT.helpers.DbQuery;
 import uwi.dcit.AgriExpenseTT.helpers.GAnalyticsHelper;
+import uwi.dcit.AgriExpenseTT.helpers.PurchaseManager;
 import uwi.dcit.AgriExpenseTT.helpers.TextHelper;
 import uwi.dcit.AgriExpenseTT.models.CycleContract.CycleEntry;
 import uwi.dcit.AgriExpenseTT.models.LocalCycle;
+import uwi.dcit.AgriExpenseTT.models.LocalResourcePurchase;
 import uwi.dcit.AgriExpenseTT.models.ResourcePurchaseContract.ResourcePurchaseEntry;
 import uwi.dcit.agriexpensesvr.resourcePurchaseApi.model.ResourcePurchase;
 
@@ -167,37 +170,49 @@ public class FragmentNewPurchaseLast extends Fragment implements DatePickerDialo
     }
 
     private int savePurchaseRecord() {
-        DataManager dm = new DataManager(getActivity().getBaseContext(), db, dbh);
+
+        CycleManager cycleManager = new CycleManager(getActivity(), db, dbh);
+        DataManager purchaseManager = new PurchaseManager(getActivity(), db, dbh);
         res = -1;
         try {
             currC = getArguments().getParcelable("cycle");
             //this is for when labour is 'purchased'/hired for a single cycle
             if (category.equals(DHelper.cat_labour) && currC != null) {
                 //insert purchase
-                res = dm.insertPurchase(resId, quantifier, qty, category, cost, unixDate);
+
+                LocalResourcePurchase purchase = new LocalResourcePurchase(resId, quantifier, qty, cost, qty, category, unixDate);
+                //Removed For Project res = dm.insertPurchase(resId, quantifier, qty, category, cost, unixDate);
+                purchaseManager.insert(purchase);
                 int pId = DbQuery.getLast(db, dbh, ResourcePurchaseEntry.TABLE_NAME);
                 ResourcePurchase p = DbQuery.getARPurchase(db, dbh, pId);
 
                 //use all of the qty of that purchase in the given cycle
-                dm.insertCycleUse(currC.getId(), p.getPId(), qty, p.getType(), quantifier, p.getCost());
+                //Removed for Project dm.insertCycleUse(currC.getId(), p.getPId(), qty, p.getType(), quantifier, p.getCost());
+                cycleManager.insertCycleUse(currC.getId(), p.getPId(), qty, p.getType(), quantifier, p.getCost());
 
                 //update purchase
                 p.setQtyRemaining(p.getQtyRemaining() - qty);
                 ContentValues cv = new ContentValues();
                 cv.put(ResourcePurchaseEntry.RESOURCE_PURCHASE_REMAINING, p.getQtyRemaining());
-                dm.updatePurchase(p, cv);
+                //Removed for project dm.updatePurchase(p, cv);
+
+                purchaseManager.update(p.getPId(), cv);
 
                 //update cycle
                 currC.setTotalSpent(currC.getTotalSpent() + cost);
                 cv = new ContentValues();
                 cv.put(CycleEntry.CROPCYCLE_TOTALSPENT, currC.getTotalSpent());
-                dm.updateCycle(currC, cv);
+                //Removed for Project dm.updateCycle(currC, cv);
+                cycleManager.update(currC.getId(), cv);
             } else {
                 if (category.equals(DHelper.cat_other))//if its the other category
                     if (resId == -1)//and the resource does not exist
                         resId = DbQuery.insertResource(db, dbh, DHelper.cat_other, TextHelper.formatUserText(resource));//then insert it !
-                if (resId != -1)
-                    res = dm.insertPurchase(resId, quantifier, qty, category, cost, unixDate);
+                if (resId != -1) {
+                    LocalResourcePurchase purchase = new LocalResourcePurchase(resId, quantifier, qty, cost, qty, category, unixDate);
+                    purchaseManager.insert(purchase);
+                    //Removed For Project res = dm.insertPurchase(resId, quantifier, qty, category, cost, unixDate);
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();

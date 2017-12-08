@@ -44,6 +44,7 @@ import uwi.dcit.AgriExpenseTT.helpers.DateFormatHelper;
 import uwi.dcit.AgriExpenseTT.helpers.DbHelper;
 import uwi.dcit.AgriExpenseTT.helpers.DbQuery;
 import uwi.dcit.AgriExpenseTT.helpers.NavigationControl;
+import uwi.dcit.AgriExpenseTT.helpers.PurchaseManager;
 import uwi.dcit.AgriExpenseTT.models.LocalCycle;
 import uwi.dcit.AgriExpenseTT.models.LocalResourcePurchase;
 
@@ -53,6 +54,7 @@ public class FragmentChoosePurchase extends ListFragment {
 	SQLiteDatabase db;
 	DbHelper dbh;
 	DataManager dm;
+	DataManager purchaseManager;
 	String type = null;
 	int cycleId;
 	LocalCycle curr = null;
@@ -73,7 +75,8 @@ public class FragmentChoosePurchase extends ListFragment {
 
 		dbh	= new DbHelper(this.getActivity().getBaseContext());
 		db	= dbh.getWritableDatabase();
-		dm	= new DataManager(getActivity(), db, dbh);
+		//Removed For Project dm	= new DataManager(getActivity(), db, dbh);
+		purchaseManager = new PurchaseManager(getActivity(), db, dbh);
 		pList = new ArrayList<>();
 
         if (getArguments() != null){
@@ -255,7 +258,8 @@ public class FragmentChoosePurchase extends ListFragment {
 		@Override
 		public void onClick(DialogInterface dialog, int which) {
 			if(which==DialogInterface.BUTTON_POSITIVE){
-				dm.deletePurchase(pList.get(position).toRPurchase());
+				//dm.deletePurchase(pList.get(position).toRPurchase());
+                purchaseManager.delete(pList.get(position).toRPurchase().getPId());
 				pList.remove(position);
 				l.notifyDataSetChanged();
 				Toast.makeText(getActivity(),"Purchase and its related cycles successfully deleted", Toast.LENGTH_SHORT).show();

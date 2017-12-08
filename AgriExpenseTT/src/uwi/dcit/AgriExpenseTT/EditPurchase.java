@@ -23,6 +23,8 @@ import uwi.dcit.AgriExpenseTT.helpers.DateFormatHelper;
 import uwi.dcit.AgriExpenseTT.helpers.DbHelper;
 import uwi.dcit.AgriExpenseTT.helpers.DbQuery;
 import uwi.dcit.AgriExpenseTT.helpers.GAnalyticsHelper;
+import uwi.dcit.AgriExpenseTT.helpers.PurchaseManager;
+import uwi.dcit.AgriExpenseTT.helpers.ResourceManager;
 import uwi.dcit.AgriExpenseTT.models.LocalResourcePurchase;
 import uwi.dcit.AgriExpenseTT.models.ResourcePurchaseContract;
 import uwi.dcit.agriexpensesvr.resourcePurchaseApi.model.ResourcePurchase;
@@ -154,9 +156,12 @@ public class EditPurchase extends BaseActivity implements DatePickerDialog.OnDat
 		cv.put(ResourcePurchaseContract.ResourcePurchaseEntry.RESOURCE_PURCHASE_COST, cost);
         cv.put(ResourcePurchaseContract.ResourcePurchaseEntry.RESOURCE_PURCHASE_DATE, date);
 
-		DataManager dm=new DataManager(EditPurchase.this, db, dbh);
+		//Removed For Project DataManager dm=new DataManager(EditPurchase.this, db, dbh);
+		DataManager purchaseManager = new PurchaseManager(EditPurchase.this, db, dbh);
         ResourcePurchase rp=p.toRPurchase();
-		dm.updatePurchase(rp,cv);
+		//Removed for Project dm.updatePurchase(rp,cv);
+
+		purchaseManager.update(rp.getPId(), cv);
 		Intent i=new Intent();
 		setResult(1,i);
 		finish();

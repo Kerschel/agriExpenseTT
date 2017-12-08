@@ -1,9 +1,15 @@
 package uwi.dcit.AgriExpenseTT.models;
 
+import android.content.ContentValues;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class LocalCycle implements Parcelable{
+import uwi.dcit.AgriExpenseTT.helpers.DbHelper;
+import uwi.dcit.AgriExpenseTT.helpers.DbQuery;
+import uwi.dcit.AgriExpenseTT.helpers.Manageable;
+
+public class LocalCycle implements Parcelable, Manageable{
 	private int id;
 	private int cropId;
 	private String landType;
@@ -72,6 +78,17 @@ public class LocalCycle implements Parcelable{
         this.landType = landType;
         this.landQty = landQty;
         this.time=dte;
+        totalSpent=0;
+    }
+
+    public LocalCycle(int cropId, String name, String landType, double landQty,long dte, String closed){
+        super();
+        this.cropId = cropId;
+        this.cycleName = name;
+        this.landType = landType;
+        this.landQty = landQty;
+        this.time=dte;
+        this.closed = closed;
         totalSpent=0;
     }
 
@@ -177,6 +194,28 @@ public class LocalCycle implements Parcelable{
 	public void setHarvestAmt(double harvestAmt) {
 		this.harvestAmt = harvestAmt;
 	}
-	
-	
+
+
+    @Override
+    public String getTableName() {
+        return CycleContract.CycleEntry.TABLE_NAME;
+    }
+
+    @Override
+	public ContentValues convertToContentValues(SQLiteDatabase db, DbHelper dbh) {
+		ContentValues cv=new ContentValues();
+		cv.put(CycleContract.CycleEntry.CROPCYCLE_CROPID, this.cropId);
+		cv.put(CycleContract.CycleEntry.CROPCYCLE_LAND_TYPE, this.landType);
+		cv.put(CycleContract.CycleEntry.CROPCYCLE_LAND_AMOUNT, this.landQty);
+		cv.put(CycleContract.CycleEntry.CROPCYCLE_DATE, this.time);
+		cv.put(CycleContract.CycleEntry.CROPCYCLE_TOTALSPENT, 0.0);
+		cv.put(CycleContract.CycleEntry.CROPCYCLE_COSTPER, 0.0);
+		cv.put(CycleContract.CycleEntry.CROPCYCLE_HARVEST_AMT, 0.0);
+		cv.put(CycleContract.CycleEntry.CROPCYCLE_HARVEST_TYPE,"Lb");
+		cv.put(CycleContract.CycleEntry.CROPCYCLE_RESOURCE, DbQuery.findResourceName(db, dbh, cropId));
+		cv.put(CycleContract.CycleEntry.CROPCYCLE_NAME, this.cycleName);
+		cv.put(CycleContract.CycleEntry.CROPCYCLE_CLOSED, closed);
+
+		return cv;
+	}
 }

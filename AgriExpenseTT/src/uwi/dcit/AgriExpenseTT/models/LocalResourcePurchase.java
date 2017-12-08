@@ -1,12 +1,17 @@
 package uwi.dcit.AgriExpenseTT.models;
 
 
+import android.content.ContentValues;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import uwi.dcit.AgriExpenseTT.helpers.DbHelper;
+import uwi.dcit.AgriExpenseTT.helpers.DbQuery;
+import uwi.dcit.AgriExpenseTT.helpers.Manageable;
 import uwi.dcit.agriexpensesvr.resourcePurchaseApi.model.ResourcePurchase;
 
-public class LocalResourcePurchase implements Parcelable{
+public class LocalResourcePurchase implements Parcelable, Manageable {
 	private int pId;
 	private int resourceId;
 	private String quantifier;
@@ -34,6 +39,16 @@ public class LocalResourcePurchase implements Parcelable{
 
     public LocalResourcePurchase(int pId, int resourceId, String quantifier, double qty, double cost, double qtyRemaining, String type, long date) {
         this.pId = pId;
+        this.resourceId = resourceId;
+        this.quantifier = quantifier;
+        this.qty = qty;
+        this.cost = cost;
+        this.qtyRemaining = qtyRemaining;
+        this.type = type;
+        this.date = date;
+    }
+
+    public LocalResourcePurchase(int resourceId, String quantifier, double qty, double cost, double qtyRemaining, String type, long date) {
         this.resourceId = resourceId;
         this.quantifier = quantifier;
         this.qty = qty;
@@ -154,6 +169,30 @@ public class LocalResourcePurchase implements Parcelable{
 			return new LocalResourcePurchase[size];
 		}
 	};
-	
-	
+
+
+	@Override
+	public String getTableName() {
+		return ResourcePurchaseContract.ResourcePurchaseEntry.TABLE_NAME;
+	}
+
+	@Override
+	public int getId() {
+		return 0;
+	}
+
+	@Override
+	public ContentValues convertToContentValues(SQLiteDatabase db, DbHelper dbh) {
+		ContentValues cv= new ContentValues();
+		cv.put(ResourcePurchaseContract.ResourcePurchaseEntry.RESOURCE_PURCHASE_RESID, resourceId);
+		cv.put(ResourcePurchaseContract.ResourcePurchaseEntry.RESOURCE_PURCHASE_TYPE, type);
+		cv.put(ResourcePurchaseContract.ResourcePurchaseEntry.RESOURCE_PURCHASE_QUANTIFIER, quantifier);
+		cv.put(ResourcePurchaseContract.ResourcePurchaseEntry.RESOURCE_PURCHASE_QTY, qty);
+		cv.put(ResourcePurchaseContract.ResourcePurchaseEntry.RESOURCE_PURCHASE_COST, cost);
+		cv.put(ResourcePurchaseContract.ResourcePurchaseEntry.RESOURCE_PURCHASE_REMAINING, qty);
+		cv.put(ResourcePurchaseContract.ResourcePurchaseEntry.RESOURCE_PURCHASE_RESOURCE, DbQuery.findResourceName(db, dbh, resourceId));
+		cv.put(ResourcePurchaseContract.ResourcePurchaseEntry.RESOURCE_PURCHASE_DATE, date);
+
+		return cv;
+	}
 }

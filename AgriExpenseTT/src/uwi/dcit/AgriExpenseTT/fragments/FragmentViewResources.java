@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.v4.app.ListFragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -21,12 +22,14 @@ import uwi.dcit.AgriExpenseTT.R;
 import uwi.dcit.AgriExpenseTT.helpers.DataManager;
 import uwi.dcit.AgriExpenseTT.helpers.DbHelper;
 import uwi.dcit.AgriExpenseTT.helpers.DbQuery;
+import uwi.dcit.AgriExpenseTT.helpers.ResourceManager;
 
 public class FragmentViewResources extends ListFragment{
 	private SQLiteDatabase db;
 	private DbHelper dbh;
 	private ArrayList<String> rList;
 	private DataManager dm;
+	private DataManager resourceManager;
 	private View view;
 	private ArrayAdapter<String> listAdapt;
 	private final String TAG = "FragmentViewResources";
@@ -38,7 +41,7 @@ public class FragmentViewResources extends ListFragment{
 
 		dbh=new DbHelper(this.getActivity().getBaseContext());
 		db=dbh.getWritableDatabase();
-		dm = new DataManager(getActivity(), db, dbh);
+		resourceManager = new ResourceManager(getActivity(), db, dbh);
 		Log.d(TAG, "Setup Database was successful");
 
 		rList = new ArrayList<>();
@@ -121,7 +124,8 @@ public class FragmentViewResources extends ListFragment{
 		@Override
 		public void onClick(DialogInterface dialog, int which) {
 			if(which==DialogInterface.BUTTON_POSITIVE){
-				dm.deleteResource(id);
+				//Removed for Project dm.deleteResource(id);
+				resourceManager.delete(id);
 				rList.remove(position);
 				adapter.notifyDataSetChanged();
 				Toast.makeText(getActivity(),"Resource deleted", Toast.LENGTH_SHORT).show();

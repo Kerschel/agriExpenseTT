@@ -38,6 +38,7 @@ import uwi.dcit.AgriExpenseTT.HireLabour;
 import uwi.dcit.AgriExpenseTT.NewCycle;
 import uwi.dcit.AgriExpenseTT.R;
 import uwi.dcit.AgriExpenseTT.helpers.CropDataHelper;
+import uwi.dcit.AgriExpenseTT.helpers.CycleManager;
 import uwi.dcit.AgriExpenseTT.helpers.DHelper;
 import uwi.dcit.AgriExpenseTT.helpers.DataManager;
 import uwi.dcit.AgriExpenseTT.helpers.DateFormatHelper;
@@ -340,12 +341,14 @@ public class FragmentViewCycles extends ListFragment{
 
 			if(which==DialogInterface.BUTTON_POSITIVE){
 
-				DataManager dm=new DataManager(getActivity(), db, dbh);
+				//Removed for Project DataManager dm=new DataManager(getActivity(), db, dbh);
+                DataManager cycleManager = new CycleManager(getActivity(), db, dbh);
 				LocalCycle c = cycleList.get(position);
 				c.setClosed("closed");
 				ContentValues cv=new ContentValues();
 				cv.put(CycleContract.CycleEntry.CROPCYCLE_CLOSED ,(c.getClosed()));
-				dm.updateCycle(c,cv);
+				//Removed for Project dm.updateCycle(c,cv);
+                cycleManager.update(c.getId(), cv);
 //				cycleList.remove(position);
 //				listAdapter.notifyDataSetChanged();
 				Toast.makeText(getActivity(),"Cycle successfully closed", Toast.LENGTH_SHORT).show();
@@ -371,9 +374,11 @@ public class FragmentViewCycles extends ListFragment{
 
 			if(which==DialogInterface.BUTTON_POSITIVE){
 
-				DataManager dm=new DataManager(getActivity(), db, dbh);
+				//Removed for Project DataManager dm=new DataManager(getActivity(), db, dbh);
+				DataManager cycleManager = new CycleManager(getActivity(), db, dbh);
 				//if(cycleList.get(position).getClosed().equals("open")) {
-					dm.deleteCycle(cycleList.get(position));
+					//Removed For Project dm.deleteCycle(cycleList.get(position));
+				cycleManager.delete(cycleList.get(position).getId());
 
 					//DbQuery.deleteRecord(db,dbh, CycleContract.CycleEntry.TABLE_NAME, cycleList.get(position).getId());
 					cycleList.remove(position);

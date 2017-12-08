@@ -26,12 +26,14 @@ import java.util.Calendar;
 import uwi.dcit.AgriExpenseTT.Main;
 import uwi.dcit.AgriExpenseTT.NewCycle;
 import uwi.dcit.AgriExpenseTT.R;
+import uwi.dcit.AgriExpenseTT.helpers.CycleManager;
 import uwi.dcit.AgriExpenseTT.helpers.DHelper;
 import uwi.dcit.AgriExpenseTT.helpers.DataManager;
 import uwi.dcit.AgriExpenseTT.helpers.DateFormatHelper;
 import uwi.dcit.AgriExpenseTT.helpers.DbHelper;
 import uwi.dcit.AgriExpenseTT.helpers.DbQuery;
 import uwi.dcit.AgriExpenseTT.helpers.TextHelper;
+import uwi.dcit.AgriExpenseTT.models.LocalCycle;
 
 public class FragmentNewCycleLast extends Fragment implements DatePickerDialog.OnDateSetListener {
 	private String plantMaterial;
@@ -141,9 +143,12 @@ public class FragmentNewCycleLast extends Fragment implements DatePickerDialog.O
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        DataManager dm = new DataManager(getActivity().getBaseContext(), db, dbh);
+                        //Removed For Project DataManager dm = new DataManager(getActivity().getBaseContext(), db, dbh);
+                        LocalCycle cycle = new LocalCycle(plantMaterialId, TextHelper.formatUserText(et_CycleName.getText().toString()), land, Double.parseDouble(et_landQty.getText().toString()), unixDate, "open");
+                        DataManager cycleManager = new CycleManager(getActivity().getBaseContext(), db, dbh);
+                        res = cycleManager.insert(cycle);
 //                        if(DbQuery.getAccount(db)!=null){
-                            res = dm.insertCycle(plantMaterialId, TextHelper.formatUserText(et_CycleName.getText().toString()) , land,Double.parseDouble(et_landQty.getText().toString()), unixDate, "open");
+                        //res = dm.insertCycle(plantMaterialId, TextHelper.formatUserText(et_CycleName.getText().toString()) , land,Double.parseDouble(et_landQty.getText().toString()), unixDate, "open");
 
                         getActivity().runOnUiThread(new Runnable() {
                             @Override

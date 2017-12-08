@@ -121,6 +121,13 @@ public class DbQuery {
         tL.insertTransLog(CycleEntry.TABLE_NAME,rowId,TransactionLog.TL_INS );
         return rowId;
     }
+
+    public static int insert(SQLiteDatabase db, DbHelper dbh, ContentValues cv, String tableName, TransactionLog transactionLog){
+	    db.insert(tableName, null, cv);
+	    int rowId = getLast(db, dbh, tableName);
+	    transactionLog.insertTransLog(tableName, rowId, TransactionLog.TL_INS);
+	    return rowId;
+    }
 	
 	public static int insertCountry(SQLiteDatabase db, String country, String type){
 		ContentValues cv = new ContentValues();

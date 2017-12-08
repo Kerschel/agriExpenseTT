@@ -29,10 +29,12 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import uwi.dcit.AgriExpenseTT.R;
+import uwi.dcit.AgriExpenseTT.helpers.CycleManager;
 import uwi.dcit.AgriExpenseTT.helpers.DHelper;
 import uwi.dcit.AgriExpenseTT.helpers.DataManager;
 import uwi.dcit.AgriExpenseTT.helpers.DbHelper;
 import uwi.dcit.AgriExpenseTT.helpers.DbQuery;
+import uwi.dcit.AgriExpenseTT.helpers.PurchaseManager;
 import uwi.dcit.AgriExpenseTT.models.CycleContract;
 import uwi.dcit.AgriExpenseTT.models.LocalCycle;
 import uwi.dcit.AgriExpenseTT.models.ResourcePurchaseContract;
@@ -173,8 +175,12 @@ public class FragmentPurchaseUse extends Fragment {
 					Toast.makeText(getActivity(), "Total Cost: "+ calCost, Toast.LENGTH_SHORT).show();
 					label();//resets labels to match data
 				}else if(v.getId()==R.id.btn_usePurchase_done){
-					DataManager dm=new DataManager(getActivity().getBaseContext());
-					dm.insertCycleUse(c.getId(), p.getPId(), useAmount, p.getType(),quantifier, calCost);
+
+					CycleManager cycleManager = new CycleManager(getActivity(), db, dbh);
+
+					DataManager purchaseManager = new PurchaseManager(getActivity(), db, dbh);
+
+					cycleManager.insertCycleUse(c.getId(), p.getPId(), useAmount, p.getType(),quantifier, calCost);
 					double rem=(amtRem-useAmount)*convertFromTo(quantifier,p.getQuantifier());
 					Toast.makeText(getActivity(), rem+" Remaining", Toast.LENGTH_SHORT).show();
 					//updating purchase
@@ -182,13 +188,16 @@ public class FragmentPurchaseUse extends Fragment {
 					ContentValues cv=new ContentValues();
 					cv.put(ResourcePurchaseContract.ResourcePurchaseEntry.RESOURCE_PURCHASE_REMAINING,p.getQtyRemaining());
 					Log.i("NEW QUANTITY",">>>"+p.getQtyRemaining());
-					dm.updatePurchase(p,cv);
+					//Removed For Project dm.updatePurchase(p,cv);
+
+                    purchaseManager.update(p.getPId(), cv);
 
 					//updating cycle
 					c.setTotalSpent(c.getTotalSpent()+ calCost);
 					cv=new ContentValues();
 					cv.put(CycleContract.CycleEntry.CROPCYCLE_TOTALSPENT, c.getTotalSpent());
-					dm.updateCycle(c,cv);
+					//Removed for Project dm.updateCycle(c,cv);
+					cycleManager.update(c.getId(), cv);
 					Log.i(getTag(), c.getTotalSpent()+" "+c.getId());
 					DbQuery.updateAccount(db,System.currentTimeMillis()/1000);
 					/*IntentLauncher i=new IntentLauncher();

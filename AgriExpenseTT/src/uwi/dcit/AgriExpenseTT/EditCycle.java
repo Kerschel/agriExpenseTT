@@ -20,6 +20,7 @@ import android.widget.Toast;
 
 import java.util.Calendar;
 
+import uwi.dcit.AgriExpenseTT.helpers.CycleManager;
 import uwi.dcit.AgriExpenseTT.helpers.DHelper;
 import uwi.dcit.AgriExpenseTT.helpers.DataManager;
 import uwi.dcit.AgriExpenseTT.helpers.DateFormatHelper;
@@ -163,8 +164,11 @@ public class EditCycle extends BaseActivity implements DatePickerDialog.OnDateSe
 
 		Toast.makeText(getApplicationContext(),"Updating "+ " "+name+crop+" "+land+" "+landQty+" "+date, Toast.LENGTH_SHORT).show();
 
-		DataManager dm=new DataManager(EditCycle.this, db, dbh);
-		boolean result = dm.updateCycle(cycle, cv);
+		//Removed For Project DataManager dm=new DataManager(EditCycle.this, db, dbh);
+		//boolean result = dm.updateCycle(cycle, cv);
+
+        DataManager cycleManager = new CycleManager(EditCycle.this, db, dbh);
+        boolean result = cycleManager.update(cycle.getId(), cv);
 
         if (result) Toast.makeText(getApplicationContext(), "Cycle was successfully Updated", Toast.LENGTH_SHORT).show();
         else Toast.makeText(getApplicationContext(), "Cycle was not updated", Toast.LENGTH_SHORT).show();
