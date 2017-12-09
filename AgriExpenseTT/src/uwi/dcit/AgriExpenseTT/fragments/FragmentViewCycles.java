@@ -37,7 +37,7 @@ import uwi.dcit.AgriExpenseTT.EditCycle;
 import uwi.dcit.AgriExpenseTT.HireLabour;
 import uwi.dcit.AgriExpenseTT.NewCycle;
 import uwi.dcit.AgriExpenseTT.R;
-import uwi.dcit.AgriExpenseTT.helpers.CropDataHelper;
+import uwi.dcit.AgriExpenseTT.helpers.CropImageHelper;
 import uwi.dcit.AgriExpenseTT.helpers.CycleManager;
 import uwi.dcit.AgriExpenseTT.helpers.DHelper;
 import uwi.dcit.AgriExpenseTT.helpers.DataManager;

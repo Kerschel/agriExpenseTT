@@ -124,7 +124,7 @@ public class DbQuery {
 
     public static int insert(SQLiteDatabase db, DbHelper dbh, ContentValues cv, String tableName, TransactionLog transactionLog){
 	    db.insert(tableName, null, cv);
-	    int rowId = getLast(db, dbh, tableName);
+	    int rowId = getLast(db, tableName);
 	    transactionLog.insertTransLog(tableName, rowId, TransactionLog.TL_INS);
 	    return rowId;
     }
